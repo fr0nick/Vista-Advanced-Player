@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.fr0nick.vista_advanced_player.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "vista_advanced_player.refmap.json",
+  "mixins": [
+    "TvBlockMixin",
+    "TvBlockEntityMixin",
+    "UrlRewriterMixin"
+  ],
+  "client": [
+    "TvBlockEntityRendererMixin",
+    "WebUrlVideoSourceMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

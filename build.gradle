@@ -1,0 +1,74 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.141'
+}
+
+version = '1.21.1-1.0.0'
+group = 'mod_group_id'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "CurseMaven"
+        url = "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
+    }
+}
+
+dependencies {
+    implementation "net.neoforged:neoforge:${neo_version}"
+    
+    implementation "curse.maven:vista-1368607:${vista_file_id}"
+    implementation "curse.maven:selene-499980:${moonlight_file_id}"
+}
+
+neoForge {
+    version = project.neo_version
+
+    parchment {
+        mappingsVersion = project.parchment_mappings_version
+        minecraftVersion = project.parchment_minecraft_version
+    }
+
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enableDoNotCatchWhatsoever', 'true'
+        }
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enableDoNotCatchWhatsoever', 'true'
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+tasks.withType(ProcessResources).configureEach {
+    def expandProps = [
+        "version": project.version
+    ]
+    inputs.properties(expandProps)
+    filesMatching("META-INF/neoforge.mods.toml") {
+        expand(expandProps)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release.set(21)
+}
