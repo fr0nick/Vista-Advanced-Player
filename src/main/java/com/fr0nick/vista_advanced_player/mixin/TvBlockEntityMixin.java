@@ -81,13 +81,6 @@ public abstract class TvBlockEntityMixin extends net.mehvahdjukaar.moonlight.api
         if (tag.contains("AdvancedPlayerSavedTicks")) this.advancedPlayer$savedTicks = tag.getInt("AdvancedPlayerSavedTicks");
     }
 
-    @Inject(method = "updateTileOnInventoryChanged", at = @At("TAIL"), remap = false)
-    private void advancedPlayer$updateClientSource(CallbackInfo ci) {
-        if (this.level != null && this.level.isClientSide) {
-            this.videoSource = net.mehvahdjukaar.vista.client.video_source.IVideoSource.create(this.getDisplayedItem());
-        }
-    }
-
     @Inject(method = "getViewingFeedId", at = @At("HEAD"), cancellable = true, remap = false)
     private void advancedPlayer$fixViewingFeedId(CallbackInfoReturnable<UUID> cir) {
         try {

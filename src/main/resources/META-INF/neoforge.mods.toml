@@ -5,7 +5,7 @@ issueTrackerURL=""
 
 [[mods]]
 modId="vista_advanced_player"
-version="1.0.0"
+version="1.0.1"
 displayName="Vista: Advanced Player"
 authors="fr0nick"
 logoFile="icon.png"
